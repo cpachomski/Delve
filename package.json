@@ -1,0 +1,16 @@
+{
+  "name": "@pachomski/delve",
+  "version": "0.0.5",
+  "description": "Delve returns a useful data model of your GraphQL Schema. That's about it.",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "tsc -p tsconfig.build.json -w",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris Pachomski <cpachomski@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "graphql-request": "^1.8.2"
+  }
+}
