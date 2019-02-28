@@ -1,29 +1,68 @@
-export default `{
-  __schema {
-    queryType {
+const queries = `
+  queryType {
+    name
+    fields {
       name
-      fields {
+      args {
         name
-        args {
+        defaultValue
+        description
+        type { 
           name
           description
-          defaultValue
-          type {
-            kind
-            name
-            description
-          }
+          kind
         }
-        name
-        description
       }
+      isDeprecated
+      deprecationReason
       description
-      enumValues {
-        name
+    }
+    inputFields {
+      name
+      description
+      defaultValue
+    }
+    description
+    kind
+    interfaces {
+      name
+      description
+    }
+  }
+`;
+
+const types = `
+  types {
+    kind
+    name
+    interfaces {
+      name
+      description
+    }
+    inputFields {
+      description
+      defaultValue
+    }
+    fields {
+      name
+      description
+      deprecationReason
+      args {
         description
-        isDeprecated
-        deprecationReason
+        defaultValue
+      }
+      
+      type {
+        name
+        kind
       }
     }
+  }
+`;
+
+export default `{
+  __schema {
+    ${queries}
+    ${types}
   }
 }`;
