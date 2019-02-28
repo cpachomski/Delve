@@ -82,7 +82,3 @@ export async function delve(url: string) {
     return console.error(err);
   }
 }
-
-delve("http://content.cnnmoney.ch/graphql").then((data: any) =>
-  console.log(JSON.stringify(data, undefined, 2))
-);
