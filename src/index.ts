@@ -13,8 +13,8 @@ interface Query {
   args: [QueryArgument];
 }
 
-const extractQueries = (schemaDef: any): [Query] =>
-  schemaDef.__schema.queryType.fields.map((q: any) => ({
+const formatQueries = (queries: any): [Query] =>
+  queries.map((q: any) => ({
     name: q.name,
     description: q.description,
     args: q.args.map((a: any) => ({
@@ -54,8 +54,8 @@ interface Type {
   attributes: [TypeAttribute];
 }
 
-const extractTypes = (schemaDef: any): [Type] =>
-  schemaDef.__schema.types
+const formatTypes = (types: any): [Type] =>
+  types
     .filter((f: any) => !DefaultGraphQLTypes.includes(f.name))
     .map((t: any) => ({
       name: t.name,
@@ -73,12 +73,33 @@ const extractTypes = (schemaDef: any): [Type] =>
 
 export async function delve(url: string) {
   try {
-    const schema = await request(url, query);
+    const {
+      __schema: { queryType, types }
+    } = await request(url, query);
+
     return {
-      queries: extractQueries(schema),
-      types: extractTypes(schema)
+      queries: {
+        list: formatQueries(queryType.fields),
+        map: formatQueries(queryType.fields).reduce((m, curr: any) => {
+          const { name, ...rest } = curr;
+          m[curr.name] = rest;
+          return m;
+        }, {})
+      },
+      types: {
+        list: formatTypes(types),
+        map: formatTypes(types).reduce((m, curr: any) => {
+          const { name, ...rest } = curr;
+          m[curr.name] = rest;
+          return m;
+        }, {})
+      }
     };
   } catch (err) {
     return console.error(err);
   }
 }
+
+delve("http://content.cnnmoney.ch/graphql").then(data =>
+  console.log(JSON.stringify(data, undefined, 2))
+);
