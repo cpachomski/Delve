@@ -5,9 +5,11 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
+    "noImplicitAny": false,
     "noUnusedLocals": true,
     "sourceMap": true,
     "strict": true,
-    "pretty": true
+    "pretty": true,
+    "lib": ["es6", "dom", "es2017"]
   }
 }
