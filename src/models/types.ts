@@ -1,4 +1,4 @@
-const DefaultGraphQLTypes = [
+export const DefaultGraphQLTypes = [
   "__Type",
   "__TypeKind",
   "__Field",
@@ -14,7 +14,7 @@ const DefaultGraphQLTypes = [
   "Float"
 ];
 
-interface TypeAttribute {
+export interface TypeAttribute {
   name: string;
   description: string;
   isDeprecated: boolean;
@@ -23,7 +23,7 @@ interface TypeAttribute {
   kind: string;
 }
 
-interface Type {
+export interface Type {
   name: string;
   attributes: [TypeAttribute];
 }

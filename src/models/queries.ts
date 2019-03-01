@@ -1,10 +1,10 @@
-interface QueryArgument {
+export interface QueryArgument {
   name: string;
   type: string;
   kind: string;
 }
 
-interface Query {
+export interface Query {
   name: string;
   description: string;
   args: [QueryArgument];

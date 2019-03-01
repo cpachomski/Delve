@@ -1,8 +1,8 @@
 import { request } from "graphql-request";
-import { formatQueries, queriesFragment } from "./models/queries";
-import { formatTypes, typesFragment } from "./models/types";
+import { formatQueries, queriesFragment, Query } from "./models/queries";
+import { formatTypes, typesFragment, Type } from "./models/types";
 
-async function delve(url: string): Promise<any> {
+async function delve(url: string) {
   const query = `{
     __schema {
       ${queriesFragment}
@@ -18,7 +18,7 @@ async function delve(url: string): Promise<any> {
     return {
       queries: {
         list: formatQueries(queryType.fields),
-        map: formatQueries(queryType.fields).reduce((m, curr: any) => {
+        map: formatQueries(queryType.fields).reduce((m, curr: Query) => {
           const { name, ...rest } = curr;
           m[curr.name] = rest;
           return m;
@@ -26,7 +26,7 @@ async function delve(url: string): Promise<any> {
       },
       types: {
         list: formatTypes(types),
-        map: formatTypes(types).reduce((m, curr: any) => {
+        map: formatTypes(types).reduce((m, curr: Type) => {
           const { name, ...rest } = curr;
           m[curr.name] = rest;
           return m;
