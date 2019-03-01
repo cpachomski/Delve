@@ -10,6 +10,11 @@
     "sourceMap": true,
     "strict": true,
     "pretty": true,
+    "rootDir": "src",
+    "outDir": "build",
+    "declaration": true,
+    "moduleResolution": "node",
     "lib": ["es6", "dom", "es2017"]
-  }
+  },
+  "exclude": ["build", "dist", "node_modules"]
 }

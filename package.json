@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode=production",
     "prepublish": "npm run build",
-    "start": "tsc -p tsconfig.build.json -w",
+    "start": "tsc -p tsconfig.json -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chris Pachomski <cpachomski@gmail.com>",
