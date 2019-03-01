@@ -1,6 +1,6 @@
 {
   "name": "@pachomski/delve",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Delve returns a useful data model of your GraphQL Schema. That's about it.",
   "main": "dist/bundle.js",
   "scripts": {
