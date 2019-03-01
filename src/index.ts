@@ -1,77 +1,15 @@
 import { request } from "graphql-request";
-import query from "./query";
+import { formatQueries, queriesFragment } from "./models/queries";
+import { formatTypes, typesFragment } from "./models/types";
 
-interface QueryArgument {
-  name: String;
-  type: String;
-  kind: String;
-}
+async function delve(url: string): Promise<any> {
+  const query = `{
+    __schema {
+      ${queriesFragment}
+      ${typesFragment}
+    }
+  }`;
 
-interface Query {
-  name: String;
-  description: String;
-  args: [QueryArgument];
-}
-
-const formatQueries = (queries: any): [Query] =>
-  queries.map((q: any) => ({
-    name: q.name,
-    description: q.description,
-    args: q.args.map((a: any) => ({
-      name: a.name,
-      type: a.type.name,
-      kind: a.type.kind
-    }))
-  }));
-
-const DefaultGraphQLTypes = [
-  "__Type",
-  "__TypeKind",
-  "__Field",
-  "__InputValue",
-  "__EnumValue",
-  "__Directive",
-  "__DirectiveLocation",
-  "__Schema",
-  "Query",
-  "Boolean",
-  "String",
-  "Int",
-  "Float"
-];
-
-interface TypeAttribute {
-  name: String;
-  description: String;
-  isDepcrecated: Boolean;
-  deprecationReason: String;
-  type: String;
-  kind: String;
-}
-
-interface Type {
-  name: String;
-  attributes: [TypeAttribute];
-}
-
-const formatTypes = (types: any): [Type] =>
-  types
-    .filter((f: any) => !DefaultGraphQLTypes.includes(f.name))
-    .map((t: any) => ({
-      name: t.name,
-      attributes: t.fields
-        ? t.fields.map((f: any) => ({
-            name: f.name,
-            description: f.description,
-            isDeprecated: f.isDeprecated,
-            deprecationReason: f.deprecationReason,
-            type: f.type.name,
-            kind: f.type.kind
-          }))
-        : null
-    }));
-
-export async function delve(url: string) {
   try {
     const {
       __schema: { queryType, types }
@@ -99,3 +37,5 @@ export async function delve(url: string) {
     return console.error(err);
   }
 }
+
+export default delve;
