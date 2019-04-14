@@ -13,12 +13,19 @@ Delve returns a useful data model of your GraphQL Schema. That's about it.
 ```javascript
 import delve from "@pachomski/delve";
 
-const schema = await delve("https://your-graphql-endpoint.com/graphql");
-// ...now do stuff with schema
-
-// OR
-
-delve("https://your-graphql-endpoint.com/graphql").then(schema => {
-  // ...now do stuff with schema
-});
+const opts = {
+  //...graphql-request options
+};
+const schemaProps = await delve(
+  "https://your-graphql-endpoint.com/graphql",
+  opts
+);
+// ...now do stuff with schemaProps
 ```
+
+### API
+
+##### `delve: (endpoint, options) => schemaProps`
+
+- `endpoint (String)`: GraphQL endpoint to inspect
+- `options (Object)`: graphql-request options object ([docs](https://github.github.io/fetch/)])
