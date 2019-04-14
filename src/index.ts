@@ -1,8 +1,8 @@
-import { request } from "graphql-request";
+import { GraphQLClient } from "graphql-request";
 import { formatQueries, queriesFragment, Query } from "./models/queries";
 import { formatTypes, typesFragment, Type } from "./models/types";
 
-async function delve(url: string) {
+async function delve(endpoint: string, options: object) {
   const query = `{
     __schema {
       ${queriesFragment}
@@ -11,9 +11,10 @@ async function delve(url: string) {
   }`;
 
   try {
+    const client = new GraphQLClient(endpoint, options);
     const {
       __schema: { queryType, types }
-    } = await request(url, query);
+    } = await client.request(query);
 
     return {
       queries: {
